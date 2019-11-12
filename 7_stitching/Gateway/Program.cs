@@ -12,6 +12,7 @@ namespace Demo.Stitching
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .UseUrls("http://localhost:5055")
                 .UseStartup<Startup>();
     }
 }

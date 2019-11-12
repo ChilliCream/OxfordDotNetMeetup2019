@@ -1,0 +1,18 @@
+query GetHero($episode: Episode = NEWHOPE) {
+  hero(episode: $episode) {
+    ...HasName
+    ...HasFriends
+  }
+}
+
+fragment HasName on Character {
+  name_
+}
+
+fragment HasFriends on Character {
+  friends {
+    nodes {
+      ...HasName
+    }
+  }
+}

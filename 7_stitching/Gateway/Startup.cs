@@ -34,6 +34,21 @@ namespace Demo.Stitching
             });
 
             services.AddHttpContextAccessor();
+
+            services.AddQueryRequestInterceptor((context, builder, ct) => 
+            {
+                builder.AddProperty("userId", "Q3VzdG9tZXIKZDI=");
+                return Task.CompletedTask;
+            });
+
+            services.AddStitchedSchema(builder => 
+            {
+                builder.AddSchemaFromHttp("contract")
+                    .AddSchemaFromHttp("customer")
+                    .AddExtensionsFromFile("./Extensions.graphql")
+                    .RenameType("LifeInsuranceContract", "LifeInsurance")
+                    .IgnoreRootTypes();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
